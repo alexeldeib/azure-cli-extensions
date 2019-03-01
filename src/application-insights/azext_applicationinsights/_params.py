@@ -5,11 +5,15 @@
 
 # pylint: disable=line-too-long
 from ._validators import validate_applications
-
+from azure.cli.core.commands.parameters import get_location_type, tags_type
 
 def load_arguments(self, _):
     with self.argument_context('monitor app-insights') as c:
-        c.argument('application', options_list=['--app', '-a'], id_part='name', help='GUID, app name, or fully-qualified Azure resource name of Application Insights component. The application GUID may be acquired from the API Access menu item on any Application Insights resource in the Azure portal. If using an application name, please specify resource group.')
+        c.argument('application', options_list=['--app', '-a'], id_part='name', help='App name for a new Application Insights component.')
+    with self.argument_context('monitor app-insights component create') as c:
+        c.argument('location', arg_type=get_location_type(self.cli_ctx))
+        c.argument('kind', options_list=['-k'], help='The kind of application that this component refers to, used to customize UI. This value is a freeform string, values should typically be one of the following: web, ios, other, store, java, phone.')
+        c.argument('tags', tags_type)
     with self.argument_context('monitor app-insights metrics show') as c:
         c.argument('metric', options_list=['--metrics', '-m'], help='The metric to retrieve. May be either a standard AI metric or an application-specific custom metric.')
         c.argument('timespan', options_list=['--timespan', '-t'], help='The timespan over which to retrieve metric values. This is an ISO8601 time period value. If timespan is omitted, a default time range of `PT12H` ("last 12 hours") is used. The actual timespan that is queried may be adjusted by the server based. In all cases, the actual time span used for the query is included in the response.')

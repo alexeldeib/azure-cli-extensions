@@ -9,7 +9,16 @@ from knack.help_files import helps
 
 helps['monitor app-insights'] = """
     type: group
-    short-summary: Commands for querying data in Application Insights applications.
+    short-summary: Commands for interacting with Application Insights applications and their data.
+"""
+
+helps['monitor app-insights create'] = """
+    type: command
+    short-summary: Create a new Application Insights resource.
+    examples:
+      - name: Create a component with kind web and location.
+        text: |
+          az monitor app-insights create --app demoApp --location westus2 --kind web
 """
 
 helps['monitor app-insights metrics'] = """
