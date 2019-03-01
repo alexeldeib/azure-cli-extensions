@@ -31,7 +31,7 @@ def get_metric(cmd, client, application, metric, timespan=None, aggregation=None
 def get_metrics_metadata(cmd, client, application, resource_group_name=None):
     return client.metrics.get_metadata(get_id_from_azure_resource(cmd.cli_ctx, application, resource_group=resource_group_name))
 
-def create_or_update_component(cmd, client, application, location, kind="web", application_type='web', resource_group_name=None):
+def create_or_update_component(cmd, client, application, location, tags=None, kind="web", application_type='web', resource_group_name=None):
     from .vendored_sdks.mgmt_applicationinsights.models import ApplicationInsightsComponent
-    component = ApplicationInsightsComponent(location, kind, application_type)
+    component = ApplicationInsightsComponent(location, kind, application_type=application_type, tags=tags)
     return client.create_or_update(resource_group_name, application, component)
