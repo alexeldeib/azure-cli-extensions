@@ -27,3 +27,31 @@ def get_query_targets(cli_ctx, apps, resource_group):
         if resource_group:
             return [get_id_from_azure_resource(cli_ctx, apps, resource_group)]
         return apps
+
+def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], write_properties=[]):
+    """Maps user-facing role names to strings used to identify them on resources."""
+    roles = {
+        "ReadTelemetry": "api",
+        "WriteAnnotations": "annotations",
+        "AuthenticateSDKControlChannel": "agentconfig"
+    }
+
+    sub_id = get_subscription_id(cli_ctx)
+    tmpl = '/subscriptions/{}/resourceGroups/{}/providers/microsoft.insights/components/{}/{}'
+    linked_read_properties, linked_write_properties = [], []
+    
+    if isinstance(read_properties, list):
+        print("Read_properties", read_properties)
+        linked_read_properties = [tmpl.format(sub_id, resource_group, app, roles[read_properties[i]]) for i in range(len(read_properties))]
+    else: 
+        linked_read_properties= [tmpl.format(sub_id, resource_group, app, roles[read_properties])]
+    if isinstance(write_properties, list):
+        linked_write_properties = [tmpl.format(sub_id, resource_group, app, roles[write_properties[i]]) for i in range(len(write_properties))]
+    else: 
+        linked_write_properties = [tmpl.format(sub_id, resource_group, app, roles[write_properties])]
+    return linked_read_properties, linked_write_properties
+
+def get_subscription_id(cli_ctx):
+    from azure.cli.core._profile import Profile
+    _, sub_id, _ = Profile(cli_ctx=cli_ctx).get_login_credentials(subscription_id=None)
+    return sub_id

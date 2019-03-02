@@ -12,13 +12,54 @@ helps['monitor app-insights'] = """
     short-summary: Commands for interacting with Application Insights applications and their data.
 """
 
-helps['monitor app-insights create'] = """
+helps['monitor app-insights component create'] = """
     type: command
     short-summary: Create a new Application Insights resource.
     examples:
       - name: Create a component with kind web and location.
         text: |
-          az monitor app-insights create --app demoApp --location westus2 --kind web
+          az monitor app-insights component create --app demoApp --location westus2 --kind web -g demoRg
+"""
+
+helps['monitor app-insights component api-key list'] = """
+    type: command
+    short-summary: List API keys associated with an Application Insights resource.
+    examples:
+      - name: Fetch API Keys.
+        text: |
+          az monitor app-insights component api-key list --app demoApp -g demoRg
+"""
+
+helps['monitor app-insights component api-key show'] = """
+    type: command
+    short-summary: Get a specific API key associated with an Application Insights resource.
+    parameters:
+      - name: --api-key-id
+        type: string
+        short-summary: ID of the API key to fetch. Can be found using `api-keys list`.
+    examples:
+      - name: Fetch API Key.
+        text: |
+          az monitor app-insights component api-key show --app demoApp -g demoRg --api-key-id f7231867-6c63-4354-8d80-27776f237ea0
+"""
+
+helps['monitor app-insights component api-key create'] = """
+    type: command
+    short-summary: Create a new API key for use with an Application Insights resource.
+    parameters:
+      - name: --api-key-name
+        type: string
+        short-summary: Name for the API key to create.
+      - name: --read-properties
+        type: list
+        short-summary: A space seperated list of names of read Roles for this API key to inherit. Possible values include ReadTelemetry and AuthenticateSDKControlChannel.
+      - name: --write-properties
+        type: list  
+        short-summary: A space seperated list of names of write Roles for this API key to inherit. Possible values include WriteAnnotations.
+    examples:
+      - name: Create a component with kind web and location.
+        text: |
+          az monitor app-insights component api-key create --api-key-name cli-demo --read-properties ReadTelemetry -g demoRg
 """
 
 helps['monitor app-insights metrics'] = """

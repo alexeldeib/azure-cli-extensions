@@ -6,7 +6,7 @@
 # pylint: disable=line-too-long
 
 from knack.log import get_logger
-from .util import get_id_from_azure_resource, get_query_targets
+from .util import get_id_from_azure_resource, get_query_targets, get_linked_properties
 
 logger = get_logger(__name__)
 
@@ -31,7 +31,21 @@ def get_metric(cmd, client, application, metric, timespan=None, aggregation=None
 def get_metrics_metadata(cmd, client, application, resource_group_name=None):
     return client.metrics.get_metadata(get_id_from_azure_resource(cmd.cli_ctx, application, resource_group=resource_group_name))
 
-def create_or_update_component(cmd, client, application, location, tags=None, kind="web", application_type='web', resource_group_name=None):
+
+def create_or_update_component(cmd, client, application, resource_group_name, location, tags=None, kind="web", application_type='web'):
     from .vendored_sdks.mgmt_applicationinsights.models import ApplicationInsightsComponent
     component = ApplicationInsightsComponent(location, kind, application_type=application_type, tags=tags)
     return client.create_or_update(resource_group_name, application, component)
+
+
+def create_api_key(cmd, client, application, resource_group_name, api_key_name, read_properties=[], write_properties=[]):
+    from .vendored_sdks.mgmt_applicationinsights.models import APIKeyRequest
+    linked_read_properties, linked_write_properties = get_linked_properties(cmd.cli_ctx, application, resource_group_name, read_properties, write_properties)
+    api_key_request = APIKeyRequest(api_key_name, linked_read_properties, linked_write_properties)
+    return client.create(resource_group_name, application, api_key_request)
+
+def list_api_keys(cmd, client, application, resource_group_name):
+    return client.list(resource_group_name, application)
+
+def get_api_key(cmd, client, application, resource_group_name, api_key_id):
+    return client.get(resource_group_name, application, api_key_id)
