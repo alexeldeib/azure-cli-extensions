@@ -10,15 +10,11 @@ from knack.help_files import helps
 helps['monitor app-insights'] = """
     type: group
     short-summary: Commands for interacting with Application Insights applications and their data.
-    parameters:
-      - name: --offset
-        short-summary: >
-          Time offset of the query range, in ##d##h format.
-        long-summary: >
-          Can be used with either --start-time or --end-time. If used with --start-time, then
-          the end time will be calculated by adding the offset. If used with --end-time (default), then
-          the start time will be calculated by subtracting the offset. If --start-time and --end-time are
-          provided, then --offset will be ignored.
+"""
+
+helps['monitor app-insights component'] = """
+    type: group
+    short-summary: Manage an Application Insights component or its subcomponents.
 """
 
 helps['monitor app-insights component create'] = """
@@ -28,6 +24,29 @@ helps['monitor app-insights component create'] = """
       - name: Create a component with kind web and location.
         text: |
           az monitor app-insights component create --app demoApp --location westus2 --kind web -g demoRg
+"""
+
+helps['monitor app-insights component show'] = """
+    type: command
+    short-summary: Get an Application Insights resource.
+    examples:
+      - name: Get a component by name.
+        text: |
+          az monitor app-insights component show --app demoApp -g demoRg
+"""
+
+helps['monitor app-insights component list'] = """
+    type: command
+    short-summary: List all Application Insights resources in a resource group.
+    examples:
+      - name: List components in a resource group.
+        text: |
+          az monitor app-insights component list -g demoRg
+"""
+
+helps['monitor app-insights component api-key'] = """
+    type: group
+    short-summary: Operations on API keys associated with an Application Insights component.
 """
 
 helps['monitor app-insights component api-key list'] = """
@@ -84,6 +103,15 @@ helps['monitor app-insights events'] = """
 helps['monitor app-insights query'] = """
     type: command
     short-summary: Execute a query over data in your application.
+    parameters:
+      - name: --offset
+        short-summary: >
+          Time offset of the query range, in ##d##h format.
+        long-summary: >
+          Can be used with either --start-time or --end-time. If used with --start-time, then
+          the end time will be calculated by adding the offset. If used with --end-time (default), then
+          the start time will be calculated by subtracting the offset. If --start-time and --end-time are
+          provided, then --offset will be ignored.
     examples:
       - name: Execute a simple query over past 3.5 days.
         text: |
@@ -97,6 +125,14 @@ helps['monitor app-insights metrics show'] = """
       - name: --interval
         short-summary: >
           The interval over which to aggregate metrics, in ##h##m format.
+      - name: --offset
+        short-summary: >
+          Time offset of the query range, in ##d##h format.
+        long-summary: >
+          Can be used with either --start-time or --end-time. If used with --start-time, then
+          the end time will be calculated by adding the offset. If used with --end-time (default), then
+          the start time will be calculated by subtracting the offset. If --start-time and --end-time are
+          provided, then --offset will be ignored.
     examples:
       - name: View the count of availabilityResults events.
         text: |
@@ -115,6 +151,15 @@ helps['monitor app-insights metrics get-metadata'] = """
 helps['monitor app-insights events show'] = """
     type: command
     short-summary: List events by type or view a single event from an application, specified by type and ID.
+    parameters:
+      - name: --offset
+        short-summary: >
+          Time offset of the query range, in ##d##h format.
+        long-summary: >
+          Can be used with either --start-time or --end-time. If used with --start-time, then
+          the end time will be calculated by adding the offset. If used with --end-time (default), then
+          the start time will be calculated by subtracting the offset. If --start-time and --end-time are
+          provided, then --offset will be ignored.
     examples:
       - name: Get an availability result by ID.
         text: |
