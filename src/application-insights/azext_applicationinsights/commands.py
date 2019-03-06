@@ -53,7 +53,6 @@ def load_command_table(self, _):
         client_factory=cf_api_key
     )
 
-
     with self.command_group('monitor app-insights component', command_type=components_sdk, custom_command_type=components_custom_sdk) as g:
         g.custom_command('create', 'create_or_update_component')
         g.custom_command('show', 'get_component')

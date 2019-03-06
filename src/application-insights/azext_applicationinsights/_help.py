@@ -95,7 +95,7 @@ helps['monitor app-insights component api-key create'] = """
         type: list
         short-summary: A space seperated list of names of read Roles for this API key to inherit. Possible values include ReadTelemetry and AuthenticateSDKControlChannel.
       - name: --write-properties
-        type: list  
+        type: list
         short-summary: A space seperated list of names of write Roles for this API key to inherit. Possible values include WriteAnnotations.
     examples:
       - name: Create a component with kind web and location.
