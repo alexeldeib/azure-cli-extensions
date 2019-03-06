@@ -49,8 +49,12 @@ def list_components(_, client, resource_group_name=None):
     return client.list()
 
 
-def create_api_key(cmd, client, application, resource_group_name, api_key_name, read_properties=[], write_properties=[]):
+def create_api_key(cmd, client, application, resource_group_name, api_key_name, read_properties=None, write_properties=None):
     from .vendored_sdks.mgmt_applicationinsights.models import APIKeyRequest
+    if read_properties is None:
+        read_properties = []
+    if write_properties is None:
+        write_properties = []
     linked_read_properties, linked_write_properties = get_linked_properties(cmd.cli_ctx, application, resource_group_name, read_properties, write_properties)
     api_key_request = APIKeyRequest(api_key_name, linked_read_properties, linked_write_properties)
     return client.create(resource_group_name, application, api_key_request)

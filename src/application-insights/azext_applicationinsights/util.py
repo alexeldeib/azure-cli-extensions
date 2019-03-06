@@ -32,7 +32,7 @@ def get_query_targets(cli_ctx, apps, resource_group):
 
 
 # pyline: disable=dangerous-default-value
-def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], write_properties=[]):
+def get_linked_properties(cli_ctx, app, resource_group, read_properties=None, write_properties=None):
     """Maps user-facing role names to strings used to identify them on resources."""
     roles = {
         "ReadTelemetry": "api",
@@ -41,7 +41,11 @@ def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], writ
     }
 
     sub_id = get_subscription_id(cli_ctx)
-    tmpl = '/subscriptions/{}/resourceGroups/{}/providers/microsoft.insights/components/{}'.format(sub_id, resource_group, app)
+    tmpl = '/subscriptions/{}/resourceGroups/{}/providers/microsoft.insights/components/{}'.format(
+        sub_id,
+        resource_group,
+        app
+    )
     linked_read_properties, linked_write_properties = [], []
 
     if isinstance(read_properties, list):
@@ -52,7 +56,7 @@ def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], writ
         linked_read_properties = ['{}/{}'.format(tmpl, roles[read_properties])]
     if isinstance(write_properties, list):
         linked_write_properties = ['{}/{}'.format(tmpl, roles[write_properties[i]]) for i in range(propLen)]
-    else: 
+    else:
         linked_write_properties = ['{}/{}'.format(tmpl, roles[write_properties])]
     return linked_read_properties, linked_write_properties
 
