@@ -3,6 +3,8 @@
 # Licensed under the MIT License. See License.txt in the project root for license information.
 # --------------------------------------------------------------------------------------------
 
+from datetime import datetime
+import dateutil.parser  # pylint: disable=import-error
 from msrestazure.tools import is_valid_resource_id, parse_resource_id
 from azext_applicationinsights._client_factory import cf_components
 
@@ -28,6 +30,7 @@ def get_query_targets(cli_ctx, apps, resource_group):
             return [get_id_from_azure_resource(cli_ctx, apps, resource_group)]
         return apps
 
+
 def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], write_properties=[]):
     """Maps user-facing role names to strings used to identify them on resources."""
     roles = {
@@ -51,7 +54,22 @@ def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], writ
         linked_write_properties = [tmpl.format(sub_id, resource_group, app, roles[write_properties])]
     return linked_read_properties, linked_write_properties
 
+
 def get_subscription_id(cli_ctx):
     from azure.cli.core._profile import Profile
     _, sub_id, _ = Profile(cli_ctx=cli_ctx).get_login_credentials(subscription_id=None)
     return sub_id
+
+
+def get_timespan(_, start_time=None, end_time=None, offset=None):
+    if not start_time and not end_time:
+        # if neither value provided, end_time is now
+        end_time = datetime.utcnow().isoformat()
+    if not start_time:
+        # if no start_time, apply offset backwards from end_time
+        start_time = (dateutil.parser.parse(end_time) - offset).isoformat()
+    elif not end_time:
+        # if no end_time, apply offset fowards from start_time
+        end_time = (dateutil.parser.parse(start_time) + offset).isoformat()
+    timespan = '{}/{}'.format(start_time, end_time)
+    return timespan
