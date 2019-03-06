@@ -31,6 +31,7 @@ def get_query_targets(cli_ctx, apps, resource_group):
         return apps
 
 
+# pyline: disable=dangerous-default-value
 def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], write_properties=[]):
     """Maps user-facing role names to strings used to identify them on resources."""
     roles = {
@@ -40,18 +41,19 @@ def get_linked_properties(cli_ctx, app, resource_group, read_properties=[], writ
     }
 
     sub_id = get_subscription_id(cli_ctx)
-    tmpl = '/subscriptions/{}/resourceGroups/{}/providers/microsoft.insights/components/{}/{}'
+    tmpl = '/subscriptions/{}/resourceGroups/{}/providers/microsoft.insights/components/{}'.format(sub_id, resource_group, app)
     linked_read_properties, linked_write_properties = [], []
-    
+
     if isinstance(read_properties, list):
-        print("Read_properties", read_properties)
-        linked_read_properties = [tmpl.format(sub_id, resource_group, app, roles[read_properties[i]]) for i in range(len(read_properties))]
-    else: 
-        linked_read_properties= [tmpl.format(sub_id, resource_group, app, roles[read_properties])]
+        propLen = len(read_properties)
+        linked_read_properties = ['{}/{}'.format(tmpl, roles[read_properties[i]]) for i in range(propLen)]
+    else:
+        propLen = len(read_properties)
+        linked_read_properties = ['{}/{}'.format(tmpl, roles[read_properties])]
     if isinstance(write_properties, list):
-        linked_write_properties = [tmpl.format(sub_id, resource_group, app, roles[write_properties[i]]) for i in range(len(write_properties))]
+        linked_write_properties = ['{}/{}'.format(tmpl, roles[write_properties[i]]) for i in range(propLen)]
     else: 
-        linked_write_properties = [tmpl.format(sub_id, resource_group, app, roles[write_properties])]
+        linked_write_properties = ['{}/{}'.format(tmpl, roles[write_properties])]
     return linked_read_properties, linked_write_properties
 
 

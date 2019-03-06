@@ -6,8 +6,9 @@
 # pylint: disable=line-too-long
 from azure.cli.core.commands.parameters import get_datetime_type
 from azure.cli.command_modules.monitor.actions import get_period_type
-from ._validators import validate_applications
 from azure.cli.core.commands.parameters import get_location_type, tags_type
+from ._validators import validate_applications
+
 
 def load_arguments(self, _):
     with self.argument_context('monitor app-insights') as c:
@@ -18,7 +19,7 @@ def load_arguments(self, _):
         c.argument('location', arg_type=get_location_type(self.cli_ctx))
         c.argument('kind', options_list=['-k'], help='The kind of application that this component refers to, used to customize UI. This value is a freeform string, values should typically be one of the following: web, ios, other, store, java, phone.')
         c.argument('tags', tags_type)
-    
+
     with self.argument_context('monitor app-insights component api-key create') as c:
         c.argument('api_key_name', help='The name of the API key to create.')
         c.argument('read_properties', nargs='+', options_list=['--read-properties'])
@@ -26,7 +27,7 @@ def load_arguments(self, _):
 
     with self.argument_context('monitor app-insights component api-key get') as c:
         c.argument('api_key_id', help='The ID of the API key to fetch.')
-    
+
     with self.argument_context('monitor app-insights metrics show') as c:
         c.argument('metric', options_list=['--metrics', '-m'], help='The metric to retrieve. May be either a standard AI metric or an application-specific custom metric.')
         c.argument('aggregation', nargs='*', help='The aggregation to use when computing the metric values. To retrieve more than one aggregation at a time, separate them with a comma. If no aggregation is specified, then the default aggregation for the metric is used.')

@@ -306,8 +306,8 @@
         "application-insights": [
             {
                 "filename": "application_insights-0.1.0-py2.py3-none-any.whl",
-                "sha256Digest": "958fc72e5266ec7c7456a88bf181a7ed66a5be4efe0c6a10de0d1d783c1a628a",
-                "downloadUrl": "https://appinsightscli.blob.core.windows.net/app-insights-cli/application_insights-0.1.0-py2.py3-none-any.whl",
+                "sha256Digest": "fbcf07cd47954fe122f5cf8e068302eca4491317fc92a6650a96248d0e1d4b8a",
+                "downloadUrl": "https://appinsightscli.blob.core.windows.net/beta-app-insights/application_insights-0.1.0-py2.py3-none-any.whl",
                 "metadata": {
                     "azext.isPreview": true,
                     "azext.minCliCoreVersion": "2.0.56",

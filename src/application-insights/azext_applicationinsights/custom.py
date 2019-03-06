@@ -33,17 +33,17 @@ def get_metrics_metadata(cmd, client, application, resource_group_name=None):
     return client.metrics.get_metadata(get_id_from_azure_resource(cmd.cli_ctx, application, resource_group=resource_group_name))
 
 
-def create_or_update_component(cmd, client, application, resource_group_name, location, tags=None, kind="web", application_type='web'):
+def create_or_update_component(_, client, application, resource_group_name, location, tags=None, kind="web", application_type='web'):
     from .vendored_sdks.mgmt_applicationinsights.models import ApplicationInsightsComponent
     component = ApplicationInsightsComponent(location, kind, application_type=application_type, tags=tags)
     return client.create_or_update(resource_group_name, application, component)
 
 
-def get_component(cmd, client, application, resource_group_name):
+def get_component(_, client, application, resource_group_name):
     return client.get(resource_group_name, application)
 
 
-def list_components(cmd, client, resource_group_name=None):
+def list_components(_, client, resource_group_name=None):
     if resource_group_name:
         return client.list_by_resource_group(resource_group_name)
     return client.list()
@@ -56,13 +56,13 @@ def create_api_key(cmd, client, application, resource_group_name, api_key_name, 
     return client.create(resource_group_name, application, api_key_request)
 
 
-def list_api_keys(cmd, client, application, resource_group_name):
+def list_api_keys(_, client, application, resource_group_name):
     return client.list(resource_group_name, application)
 
 
-def get_api_key(cmd, client, application, resource_group_name, api_key_id):
+def get_api_key(_, client, application, resource_group_name, api_key_id):
     return client.get(resource_group_name, application, api_key_id)
 
 
-def delete_api_key(cmd, client, application, resource_group_name, api_key_id):
+def delete_api_key(_, client, application, resource_group_name, api_key_id):
     return client.delete(resource_group_name, application, api_key_id)
