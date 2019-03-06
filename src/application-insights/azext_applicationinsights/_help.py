@@ -62,13 +62,26 @@ helps['monitor app-insights component api-key show'] = """
     type: command
     short-summary: Get a specific API key associated with an Application Insights resource.
     parameters:
-      - name: --api-key-id
+      - name: --api-key
         type: string
-        short-summary: ID of the API key to fetch. Can be found using `api-keys list`.
+        short-summary: GUID of the API key to fetch. Can be found using `api-keys list`.
     examples:
       - name: Fetch API Key.
         text: |
-          az monitor app-insights component api-key show --app demoApp -g demoRg --api-key-id f7231867-6c63-4354-8d80-27776f237ea0
+          az monitor app-insights component api-key show --app demoApp -g demoRg --api-key f7231867-6c63-4354-8d80-27776f237ea0
+"""
+
+helps['monitor app-insights component api-key delete'] = """
+    type: command
+    short-summary: Delete an API key from an Application Insights resource.
+    parameters:
+      - name: --api-key
+        type: string
+        short-summary: GUID of the API key to delete. Can be found using `api-keys list`.
+    examples:
+      - name: Delete API Key.
+        text: |
+          az monitor app-insights component api-key delete --app demoApp -g demoRg --api-key f7231867-6c63-4354-8d80-27776f237ea0
 """
 
 helps['monitor app-insights component api-key create'] = """

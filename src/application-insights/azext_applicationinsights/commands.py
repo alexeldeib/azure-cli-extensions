@@ -63,6 +63,7 @@ def load_command_table(self, _):
         g.custom_command('create', 'create_api_key')
         g.custom_command('list', 'list_api_keys')
         g.custom_command('show', 'get_api_key')
+        g.custom_command('delete', 'delete_api_key')
 
     with self.command_group('monitor app-insights metrics', metrics_sdk) as g:
         g.custom_command('show', 'get_metric')

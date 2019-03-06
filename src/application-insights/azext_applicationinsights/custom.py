@@ -62,3 +62,7 @@ def list_api_keys(cmd, client, application, resource_group_name):
 
 def get_api_key(cmd, client, application, resource_group_name, api_key_id):
     return client.get(resource_group_name, application, api_key_id)
+
+
+def delete_api_key(cmd, client, application, resource_group_name, api_key_id):
+    return client.delete(resource_group_name, application, api_key_id)
