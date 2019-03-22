@@ -12,11 +12,11 @@ from ._validators import validate_applications
 def load_arguments(self, _):
     with self.argument_context('monitor app-insights') as c:
         c.argument('application', options_list=['--app', '-a'], id_part='name', help='GUID, app name, or fully-qualified Azure resource name of Application Insights component. The application GUID may be acquired from the API Access menu item on any Application Insights resource in the Azure portal. If using an application name, please specify resource group.')
-        
+
     with self.argument_context('monitor app-insights component create') as c:
         c.argument('location', arg_type=get_location_type(self.cli_ctx))
         c.argument('application-type', options_list=['application-type', '--type', '-t'], help="Type of application being monitored. Possible values include: 'web', 'other'. Default value: 'web' .")
-        c.argument('kind', options_list=['-k'], help='The kind of application that this component refers to, used to customize UI. This value is a freeform string, values should typically be one of the following: web, ios, other, store, java, phone.')
+        c.argument('kind', options_list=['--kind', '-k'], help='The kind of application that this component refers to, used to customize UI. This value is a freeform string, values should typically be one of the following: web, ios, other, store, java, phone.')
         c.argument('tags', tags_type)
 
     with self.argument_context('monitor app-insights component update') as c:
@@ -28,7 +28,7 @@ def load_arguments(self, _):
         c.argument('tags', tags_type)
 
     with self.argument_context('monitor app-insights api-key create') as c:
-        c.argument('api_key_name', help='The name of the API key to create.')
+        c.argument('api_key', help='The name of the API key to create.')
         c.argument('read_properties', nargs='+', options_list=['--read-properties'])
         c.argument('write_properties', nargs='+')
 

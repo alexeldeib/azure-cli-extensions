@@ -331,10 +331,10 @@
                     "license": "MIT",
                     "metadata_version": "2.0",
                     "name": "application-insights",
-                    "summary": "Support for querying Azure Application Insights metrics, events, and logs.",
+                    "summary": "Support for managing Application Insights components and querying metrics, events, and logs from such components.",
                     "version": "0.1.1"
                 },
-                "sha256Digest": "1543b62e63a3102f03ca4592e0e0358925be7a8a3f28c1deb213a656128c63c0"
+                "sha256Digest": "8257ec6a0484f4a7ee007a818f7c70a8062ee9885136e3e25e2b4d5083966bdc"
             }
         ],
         "azure-batch-cli-extensions": [
@@ -1010,10 +1010,10 @@
                 "sha256Digest": "0960ec6711959712d5cbab611e32d248f0cdc597cef9613a5dbac790f4cf3b56"
             }
         ],
-        "front-door": [
+        "front-door": [            
             {
-                "downloadUrl": "https://azurecliprod.blob.core.windows.net/cli-extensions/front_door-0.1.2-py2.py3-none-any.whl",
-                "filename": "front_door-0.1.2-py2.py3-none-any.whl",
+                "downloadUrl": "https://azurecliprod.blob.core.windows.net/cli-extensions/front_door-0.1.3-py2.py3-none-any.whl",
+                "filename": "front_door-0.1.3-py2.py3-none-any.whl",
                 "metadata": {
                     "azext.isPreview": true,
                     "azext.minCliCoreVersion": "2.0.46",
@@ -1052,9 +1052,9 @@
                     "metadata_version": "2.0",
                     "name": "front-door",
                     "summary": "Manage networking Front Doors.",
-                    "version": "0.1.2"
+                    "version": "0.1.3"
                 },
-                "sha256Digest": "c5d3cdc99701095898f8080812654601cd81550d1d033048160a9497acccf5c1"
+                "sha256Digest": "8a0b83d629f98dc152f2c9a41923a42ddc5ec0af2ff6fe19769beca9394e8c58"
             }
         ],
         "image-copy-extension": [

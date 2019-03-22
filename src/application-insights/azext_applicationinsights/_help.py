@@ -29,19 +29,39 @@ helps['monitor app-insights component'] = """
 helps['monitor app-insights component create'] = """
     type: command
     short-summary: Create a new Application Insights resource.
+    parameters:
+      - name: --application-type
+        type: string
+        short-summary: Type of application being monitored. Possible values include 'web', 'other'. Default value is'web' .
+      - name: --kind
+        type: string
+        short-summary: The kind of application that this component refers to, used to customize UI. This value is a freeform string, values should typically be one of web, ios, other, store, java, phone.
     examples:
       - name: Create a component with kind web and location.
         text: |
-          az monitor app-insights component create --app demoApp --location westus2 --kind web -g demoRg
+          az monitor app-insights component create --app demoApp --location westus2 --kind web -g demoRg --application-type web
 """
 
 helps['monitor app-insights component update'] = """
     type: command
-    short-summary: Update tags on an existing Application Insights resource. The primary value which can be updated is kind, which customizes the UI experience.
+    short-summary: Update properties on an existing Application Insights resource. The primary value which can be updated is kind, which customizes the UI experience.
+    parameters:
+      - name: --kind
+        type: string
+        short-summary: The kind of application that this component refers to, used to customize UI. This value is a freeform string, values should typically be one of web, ios, other, store, java, phone.
     examples:
       - name: Update a component with kind web.
         text: |
-          az monitor app-insights component update --app demoApp --location westus2 --kind web -g demoRg
+          az monitor app-insights component update --app demoApp --kind web -g demoRg
+"""
+
+helps['monitor app-insights component update-tags'] = """
+    type: command
+    short-summary: Update tags on an existing Application Insights resource.
+    examples:
+      - name: Update the tag 'name' to equal 'value'.
+        text: |
+          az monitor app-insights component update-tags --app demoApp --tags name=value -g demoRg
 """
 
 helps['monitor app-insights component show'] = """
@@ -73,26 +93,20 @@ helps['monitor app-insights api-key'] = """
     short-summary: Operations on API keys associated with an Application Insights component.
 """
 
-helps['monitor app-insights api-key list'] = """
-    type: command
-    short-summary: List API keys associated with an Application Insights resource.
-    examples:
-      - name: Fetch API Keys.
-        text: |
-          az monitor app-insights component api-key list --app demoApp -g demoRg
-"""
-
 helps['monitor app-insights api-key show'] = """
     type: command
-    short-summary: Get a specific API key associated with an Application Insights resource.
+    short-summary: Get all keys or a specific API key associated with an Application Insights resource.
     parameters:
       - name: --api-key
         type: string
-        short-summary: GUID of the API key to fetch. Can be found using `api-keys list`.
+        short-summary: name of the API key to fetch. Can be found using `api-keys list`.
     examples:
       - name: Fetch API Key.
         text: |
-          az monitor app-insights component api-key show --app demoApp -g demoRg --api-key f7231867-6c63-4354-8d80-27776f237ea0
+          az monitor app-insights api-key show --app demoApp -g demoRg --api-key demo-key
+      - name: Fetch API Keys.
+        text: |
+          az monitor app-insights api-key show --app demoApp -g demoRg
 """
 
 helps['monitor app-insights api-key delete'] = """
@@ -101,18 +115,18 @@ helps['monitor app-insights api-key delete'] = """
     parameters:
       - name: --api-key
         type: string
-        short-summary: GUID of the API key to delete. Can be found using `api-keys list`.
+        short-summary: Name of the API key to delete. Can be found using `api-keys list`.
     examples:
       - name: Delete API Key.
         text: |
-          az monitor app-insights component api-key delete --app demoApp -g demoRg --api-key f7231867-6c63-4354-8d80-27776f237ea0
+          az monitor app-insights api-key delete --app demoApp -g demoRg --api-key demo-key
 """
 
 helps['monitor app-insights api-key create'] = """
     type: command
     short-summary: Create a new API key for use with an Application Insights resource.
     parameters:
-      - name: --api-key-name
+      - name: --api-key
         type: string
         short-summary: Name for the API key to create.
       - name: --read-properties
@@ -124,7 +138,7 @@ helps['monitor app-insights api-key create'] = """
     examples:
       - name: Create a component with kind web and location.
         text: |
-          az monitor app-insights component api-key create --api-key-name cli-demo --read-properties ReadTelemetry -g demoRg
+          az monitor app-insights api-key create --api-key cli-demo --read-properties ReadTelemetry -g demoRg --app testApp
 """
 
 helps['monitor app-insights metrics'] = """
